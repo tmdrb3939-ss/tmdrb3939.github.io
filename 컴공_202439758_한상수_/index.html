@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FITLOG - 대시보드</title>
+   
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { font-family: 'Noto Sans KR', sans-serif; background-color: #050505; color: #ffffff; line-height: 1.7; }
+        ul { list-style-type: none; }
+        [class*="c_"] { float: left; padding: 15px; width: 100%; }
+        .grid-row::after { content: ""; display: table; clear: both; }
+        
+        @media only screen and (min-width: 600px) {
+            .c_m_12 { width: 100%; }
+        }
+        @media only screen and (min-width: 768px) {
+            .c_3 { width: 25%; }
+            .c_9 { width: 75%; }
+            .c_12 { width: 100%; }
+        }
+        
+        .container { max-width: 1300px; margin: 0 auto; padding: 0 10px; }
+        header { background: linear-gradient(135deg, #111111 0%, #070707 100%); border-bottom: 1px solid #1a1a1a; padding: 30px 20px; text-align: center; position: relative; }
+        header .logo { font-family: 'Montserrat', sans-serif; font-size: 2.3em; font-weight: 900; color: #00ff88; letter-spacing: 4px; margin-bottom: 5px; text-shadow: 0 0 15px rgba(0, 255, 136, 0.3); }
+        header .slogan { font-family: 'Montserrat', sans-serif; font-size: 0.85em; color: #666666; text-transform: uppercase; letter-spacing: 2px; }
+        header .top-auth { position: absolute; right: 30px; top: 38px; font-size: 0.8em; color: #888; }
+        header .top-auth span { margin-left: 12px; cursor: pointer; transition: color 0.2s; }
+        header .top-auth span:hover { color: #00ff88; }
+
+        nav { background-color: #111111; border-bottom: 2px solid #00ff88; }
+        nav ul { display: flex; justify-content: center; }
+        nav ul li { font-size: 1em; font-weight: 700; padding: 16px 28px; color: #aaaaaa; cursor: pointer; transition: all 0.3s ease; }
+        nav ul li:hover, nav ul li.active { color: #00ff88; background-color: #070707; }
+
+        main { margin-top: 25px; }
+        #main-content { background-color: #111111; border-radius: 16px; border: 1px solid #222222; padding: 30px; }
+        
+        .hero-banner { 
+            background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.9)), 
+            url('banner.jpg') center/cover no-repeat;
+            height: 240px; border-radius: 12px; display: flex; flex-direction: column; justify-content: flex-end; padding: 30px; margin-bottom: 30px; border: 1px solid #2a2a2a; 
+        }
+        .hero-banner h2 { font-family: 'Montserrat', sans-serif; font-size: 2.2em; font-weight: 900; color: #ffffff; line-height: 1.2; }
+        .hero-banner h2 span { color: #00ff88; }
+
+        .main-title { font-size: 1.6em; font-weight: 700; margin-bottom: 10px; color: #ffffff; border-left: 5px solid #00ff88; padding-left: 12px; }
+        .main-desc { color: #aaaaaa; font-size: 0.95em; margin-bottom: 30px; }
+
+        .dashboard-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 20px; }
+        .dash-card { background: #181818; border: 1px solid #282828; border-radius: 12px; padding: 25px; text-align: center; transition: all 0.3s; }
+        .dash-card:hover { border-color: #00ff88; transform: translateY(-3px); }
+        .dash-card i { font-size: 2em; color: #00ff88; margin-bottom: 15px; }
+        .dash-card h3 { font-size: 1.1em; color: #aaa; margin-bottom: 10px; }
+        .dash-card .num { font-family: 'Montserrat', sans-serif; font-size: 2em; font-weight: 800; color: #fff; }
+
+        #right-sidebar { background-color: #111111; border-radius: 16px; border: 1px solid #222222; padding: 25px; }
+        .section-right-title { font-size: 1.1em; font-weight: 700; color: #ffffff; margin-bottom: 20px; letter-spacing: 0.5px; border-bottom: 1px solid #222222; padding-bottom: 10px; }
+        .stat-widget { background: #181818; border-radius: 10px; padding: 15px; margin-bottom: 15px; border-left: 4px solid #00ff88; }
+        .stat-widget .label { font-size: 0.8em; color: #777777; text-transform: uppercase; }
+        .stat-widget .value { font-size: 1.5em; font-weight: 800; color: #ffffff; margin: 2px 0; }
+        .stat-widget .desc { font-size: 0.8em; color: #aaaaaa; }
+        .feed-box { margin-top: 25px; }
+        .feed-img-wrapper { width: 100%; height: 150px; border-radius: 8px; overflow: hidden; margin-top: 10px; border: 1px solid #222; }
+        .feed-img-wrapper img { width: 100%; height: 100%; object-fit: cover; }
+
+        footer { background-color: #000000; border-top: 1px solid #111111; padding: 40px 20px; margin-top: 40px; clear: both; text-align: center; }
+        footer .footer-links { font-size: 0.85em; color: #666666; margin-bottom: 15px; }
+        footer .footer-links span { margin: 0 10px; cursor: pointer; }
+        footer .footer-links span:hover { color: #00ff88; }
+        footer p { font-size: 0.8em; color: #444444; }
+        footer p span { color: #666666; }
+        
+        @media only screen and (max-width: 767px) {
+            header .top-auth { position: static; margin-top: 10px; }
+            nav ul { flex-wrap: wrap; }
+            nav ul li { padding: 12px 15px; font-size: 0.9em; }
+        }
+    </style>
+</head>
+<body>
+
+    <header class="c_12">
+        <div class="logo">FITLOG</div>
+        <div class="slogan">Premium Workout Intelligence System</div>
+        <div class="top-auth">
+            <span>로그인</span>|<span>회원가입</span>|<span>마이페이지</span>
+        </div>
+    </header>
+
+    <nav class="c_12">
+        <ul>
+            <li class="active" onclick="location.href='index.html'">대시보드</li>
+            <li onclick="location.href='routine.html'">분할 루틴</li>
+            <li onclick="location.href='weekly.html'">주간 일지</li>
+            <li onclick="location.href='body.html'">신체 분석</li>
+            <li onclick="location.href='guide.html'">이용 가이드</li>
+        </ul>
+    </nav>
+
+    <div class="container">
+        <main class="grid-row">
+            
+            <section id="main-content" class="c_9 c_m_12">
+                <div class="hero-banner">
+                    <h2>FITLOG INTELLIGENCE</h2>
+                </div>
+
+                <h1 class="main-title">실시간 퍼포먼스 요약</h1>
+                <p class="main-desc">오늘 설계된 트레이닝 볼륨 수치와 최근 기록된 하드웨어 계측 요약 대시보드입니다.</p>
+
+                <div class="dashboard-grid">
+                    <div class="dash-card">
+                        <i class="fa-solid fa-dumbbell"></i>
+                        <h3>오늘의 목표 볼륨</h3>
+                        <div class="num">14,200 kg</div>
+                    </div>
+                    <div class="dash-card">
+                        <i class="fa-solid fa-fire"></i>
+                        <h3>소모 칼로리</h3>
+                        <div class="num">680 kcal</div>
+                    </div>
+                    <div class="dash-card">
+                        <i class="fa-solid fa-clock"></i>
+                        <h3>활동 시간</h3>
+                        <div class="num">75 min</div>
+                    </div>
+                </div>
+            </section>
+
+            <aside id="right-sidebar" class="c_3 c_m_12">
+                <h4 class="section-right-title">Intelligence Metrics</h4>
+                <div class="stat-widget">
+                    <div class="label">Weekly Routine Rate</div>
+                    <div class="value" style="color: #00ff88;">85%</div>
+                    <div class="desc">주간 설정 점진적 과부하 루틴 완수</div>
+                </div>
+                <div class="stat-widget" style="border-left-color: #bb86fc;">
+                    <div class="label">Target Body Metric</div>
+                    <div class="value" style="color: #bb86fc;">23 BMI</div>
+                    <div class="desc">골격근량 대비 최적 신체 연산 지표</div>
+                </div>
+                <div class="feed-box">
+                    <h4 class="section-right-title" style="margin-bottom: 10px; border: none; padding: 0;">Training Feed</h4>
+                    <p style="font-size: 0.8em; color: #666;">@fitlog_premium_system</p>
+                    <div class="feed-img-wrapper">
+                        <img src="health.jpg" alt="Training Center">
+                    </div>
+                </div>
+            </aside>
+
+        </main>
+    </div>
+
+    <footer class="c_12">
+        <div class="footer-links">
+            <span>개인정보 처리방침</span>|<span>사이트 이용약관</span>|<span>시스템 가이드</span>
+        </div>
+        <p>블로그 소유자 : 내 이름 | 연락처 : <span>tmdrb3939@naver.com</span></p>
+        <p style="margin-top: 5px; color: #222; font-size: 0.75em;">COPYRIGHT(C) FITLOG ENGINE CORE. ALL RIGHTS RESERVED.</p>
+    </footer>
+
+</body>
+</html>
