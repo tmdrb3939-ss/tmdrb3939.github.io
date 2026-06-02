@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FITLOG - 분할 루틴</title>
+   
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { font-family: sans-serif; background-color: #ffffff; color: #333333; }
+        .container { max-width: 1200px; margin: 0 auto; }
+        .grid-row::after { content: ""; display: table; clear: both; }
+        
+        [class*="c_"] { float: left; padding: 15px; }
+        .c_3 { width: 25%; } 
+        .c_9 { width: 75%; } 
+        .c_12 { width: 100%; }
+
+        @media only screen and (max-width: 767px) {
+            .grid-row #main-content.c_9,
+            .grid-row #right-sidebar.c_3 { width: 100%; float: none; }
+            header .top-auth { position: static; margin-top: 15px; text-align: center; }
+            .banner-text h2 { font-size: 1.8em; }
+            
+  
+            .table-wrapper { overflow-x: auto; width: 100%; -webkit-overflow-scrolling: touch; margin-bottom: 15px; }
+            .main table { min-width: 500px; } 
+            .main th, .main td { padding: 8px 6px; font-size: 0.85em; }
+        }
+        
+   
+        header { background-color: #e5e5e5; text-align: center; padding: 30px 20px; position: relative; }
+        header .logo { font-size: 2em; font-weight: bold; color: #000000; }
+        header .top-auth { position: absolute; right: 30px; top: 38px; font-size: 0.85em; color: #555555; }
+        header .top-auth span { margin: 0 5px; cursor: pointer; }
+
+        nav { background-color: #cdcdcd; }
+        nav ul { display: flex; list-style-type: none; justify-content: center; }
+        nav ul li { padding: 12px 20px; font-weight: bold; cursor: pointer; color: #000000; }
+        nav ul li.active { background-color: #e5e5e5; color: purple; } 
+
+        main { margin-top: 15px; }
+        #main-content { padding: 5px; }
+        
+   
+        .hero-banner { margin-bottom: 15px; width: 100%; height: 220px; position: relative; overflow: hidden; }
+        .hero-banner img { width: 100%; height: 100%; object-fit: cover; display: block; }
+        .hero-banner::before {
+            content: ""; position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            background: linear-gradient(to right, rgba(0,0,0,0.7) 40%, rgba(0,0,0,0.2) 100%); z-index: 1;
+        }
+        .banner-text { position: absolute; top: 50%; left: 40px; transform: translateY(-50%); z-index: 2; color: #ffffff; }
+        .banner-text h2 { font-size: 2.5em; font-weight: 900; color: #26e600; text-shadow: 2px 2px 10px rgba(38, 230, 0, 0.3); }
+        
+   
+        .main { text-align: center; width: 100%; }
+        .main h2 { font-size: 1.6em; margin-bottom: 8px; color: #000000; }
+        .main p { color: #555555; font-size: 0.95em; margin-bottom: 20px; line-height: 1.6; }
+
+        .main table { width: 100%; max-width: 750px; margin: 0 auto 10px auto; border-collapse: collapse; }
+        .main th, .main td { padding: 12px 10px; text-align: center; border-bottom: 1px solid #e0e0e0; word-break: keep-all; }
+        .main th { font-weight: bold; color: #666666; font-size: 0.9em; background-color: #f9f9f9; }
+        .main td { color: #333333; font-size: 0.95em; }
+
+   
+        #right-sidebar { padding: 5px; }
+        .section-right-title { font-size: 1.1em; margin-bottom: 15px; color: #000000; border-bottom: 1px solid #cdcdcd; padding-bottom: 5px; }
+        
+        .stat-widget { padding: 10px 0; margin-bottom: 20px; }
+        .stat-widget .label { font-size: 0.8em; color: #666666; font-weight: bold; }
+        .stat-widget .value { font-size: 1.4em; font-weight: bold; color: purple; margin: 2px 0; }
+        .stat-widget .desc { font-size: 0.85em; color: #555555; }
+
+ 
+        footer { background-color: #e5e5e5; padding: 20px; text-align: center; margin-top: 40px; }
+        footer .footer-links { font-size: 0.85em; color: #555555; margin-bottom: 10px; }
+        footer p { font-size: 0.85em; color: #666666; }
+    </style>
+</head>
+<body>
+
+    <header class="c_12">
+        <div class="logo">FITLOG</div>
+        <div class="top-auth">
+            <span>로그인</span>|<span>회원가입</span>|<span>마이페이지</span>
+        </div>
+    </header>
+
+    <nav class="c_12">
+        <ul>
+            <li onclick="location.href='index.html'">대시보드</li>
+            <li class="active" onclick="location.href='routine.html'">분할 루틴</li>
+            <li onclick="location.href='weekly.html'">주간 일지</li>
+            <li onclick="location.href='body.html'">신체 분석</li>
+            <li onclick="location.href='guide.html'">이용 가이드</li>
+        </ul>
+    </nav>
+
+    <div class="container">
+        <main class="grid-row">
+            
+            <section id="main-content" class="c_9">
+                <div class="hero-banner">
+                    <img src="routine.png" alt="FITLOG INTELLIGENCE BANNER">
+                    <div class="banner-text">
+                        <h2>FITLOG INTELLIGENCE</h2>
+                    </div>
+                </div>
+
+                <div class="main">
+                    <h2>3분할 루틴 설계</h2>
+                    <p>신체 회복 속도와 근성장 효율을 극대화하기 위해 설계된 정석적인 3분할 프로그램 루틴 표입니다.</p>
+                    
+                    <div class="table-wrapper">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>분할 구분</th>
+                                    <th>타겟 부위</th>
+                                    <th>주요 종목</th>
+                                    <th>휴식 시간</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><strong>Day 1 (밀기)</strong></td>
+                                    <td>가슴, 삼두, 전면 어깨</td>
+                                    <td>벤치프레스, 인클라인 덤벨 프레스, 딥스, 라잉 트라이셉스 익스텐션</td>
+                                    <td>2분</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Day 2 (당기기)</strong></td>
+                                    <td>등, 이두, 후면 어깨</td>
+                                    <td>티바로우, 랫풀다운, 덤벨로우, 덤벨 컬, 벤트 오버 레터럴 레이즈</td>
+                                    <td>2분</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Day 3 (하체)</strong></td>
+                                    <td>하체, 코어</td>
+                                    <td>스쿼트, 레그 프레스, 불가리안 스플릿 스쿼트, 레그 컬, 레그 익스텐션, 싯업</td>
+                                    <td>2분 ~ 3분</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+
+            <aside id="right-sidebar" class="c_3">
+                <h4 class="section-right-title">Intelligence Metrics</h4>
+                
+                <div class="stat-widget">
+                    <div class="label">Weekly Routine Rate</div>
+                    <div class="value">85%</div>
+                    <div class="desc">주간 설정 점진적 과부하 루틴 완수</div>
+                </div>
+                
+                <div class="stat-widget">
+                    <div class="label">Target Body Metric</div>
+                    <div class="value">23 BMI</div>
+                    <div class="desc">골격근량 대비 최적 신체 연산 지표</div>
+                </div>
+            </aside>
+
+        </main>
+    </div>
+
+    <footer class="c_12">
+        <div class="footer-links">
+            <span>개인정보 처리방침</span> | <span>사이트 이용약관</span> | <span>시스템 가이드</span>
+        </div>
+        <p>블로그 소유자 : 한상수 | 연락처 : tmdrb3939@naver.com</p>
+    </footer>
+
+</body>
+</html>
